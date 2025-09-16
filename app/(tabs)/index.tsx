@@ -1,8 +1,30 @@
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, SafeAreaView, StatusBar } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, SafeAreaView, StatusBar ,Animated } from "react-native";
 import { useRouter } from "expo-router";
+import { useRef, useState } from "react";
 
 export default function GetStartedScreen() {
+  const progress = useRef(new Animated.Value(0)).current;
+  const [showProgress, setShowProgress] = useState(false);
   const router = useRouter();
+
+  const handleGetStarted = () => {
+    setShowProgress(true);
+
+    // Animate progress from 0 to 1 over 2 seconds
+    Animated.timing(progress, {
+      toValue: 1,
+      duration: 2000,
+      useNativeDriver: false,
+    }).start(() => {
+      // After animation finishes, redirect
+      router.push("/login");
+    });
+  };
+
+  const progressWidth = progress.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0%", "100%"],
+  });
 
   return (
     <View style={styles.container}>
@@ -21,11 +43,17 @@ export default function GetStartedScreen() {
 
             <TouchableOpacity
               style={styles.primaryBtn}
-              onPress={() => router.push("/login")}
+              onPress={handleGetStarted}
               activeOpacity={0.8}
             >
               <Text style={styles.primaryBtnText}>Get Started</Text>
             </TouchableOpacity>
+
+            {showProgress && (
+              <View style={styles.progressBarContainer}>
+                <Animated.View style={[styles.progressBarFill, { width: progressWidth }]} />
+              </View>
+            )}
           </View>
         </SafeAreaView>
       </ImageBackground>
@@ -57,17 +85,21 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   title: {
+    fontFamily:"Italina-Regular",
+    lineHeight:50,
     fontSize: 54,
-    fontWeight: "200",
+    fontWeight: "400",
     color: "#FFFFFF",
     letterSpacing: 4,
-    marginBottom: 8,
+    marginBottom: 20,
     textShadowColor: "rgba(0, 0, 0, 0.1)",
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 4,
   },
   subtitle: {
-    fontSize: 16,
+    fontFamily:"inter",
+    fontSize: 24,
+    lineHeight:21,
     color: "#FFFFFF",
     fontWeight: "300",
     letterSpacing: 1,
@@ -78,8 +110,8 @@ const styles = StyleSheet.create({
   primaryBtn: {
     backgroundColor: "#B84953",
     paddingVertical: 16,
-    paddingHorizontal: 50,
-    borderRadius: 28,
+    paddingHorizontal: 32,
+    borderRadius: 16,
     alignSelf: "center",
     minWidth: 200,
     elevation: 4,
@@ -92,10 +124,25 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
   },
   primaryBtnText: {
-    color: "#FFFFFF",
-    fontSize: 17,
+    fontFamily:"inter",
+    fontSize: 24,
+    lineHeight:21,
+    color:"#ffffff",
     fontWeight: "500",
     letterSpacing: 0.5,
     textAlign: "center",
+  },
+   progressBarContainer: {
+    height: 12,
+    width: 180,
+    backgroundColor: "#D5C0BA",
+    borderRadius: 6,
+    overflow: "hidden",
+    alignSelf: "center",
+    marginTop: 20,
+  },
+  progressBarFill: {
+    height: "100%",
+    backgroundColor: "#F3E2DD",
   },
 });
