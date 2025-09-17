@@ -1,4 +1,5 @@
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, StatusBar, Dimensions } from "react-native";
+import { View, Text, TextInput, StyleSheet, TouchableOpacity,Image,ScrollView, 
+  KeyboardAvoidingView,Platform, } from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons } from '@expo/vector-icons';
 
@@ -6,74 +7,91 @@ export default function LoginScreen() {
   const router = useRouter();
 
   return (
-    <View style={styles.container}>
-      <StatusBar backgroundColor="#F8A5A5" barStyle="light-content" />
+   <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+    >
+      <ScrollView 
+        contentContainerStyle={{ flexGrow: 1 }} 
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.container}>
+          {/* Header Section */}
+          <View style={styles.headerContainer}>
+            <Text style={styles.header}>Hello Again!</Text>
+            <Text style={styles.subheader}>Welcome back you've been missed.</Text>
+          </View>
 
-      {/* Header Section */}
-      <View style={styles.headerContainer}>
-        <Text style={styles.header}>Hello Again!</Text>
-        <Text style={styles.subheader}>Welcome back you've been missed.</Text>
-      </View>
+          {/* Form Section */}
+          <View style={styles.formContainer}>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter your email Id"
+                placeholderTextColor="#999"
+              />
+              <Ionicons name="mail-outline" size={20} color="#37415199" style={styles.inputIcon} />
+            </View>
 
-      {/* Form Section */}
-      <View style={styles.formContainer}>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter your email Id"
-            placeholderTextColor="#999"
-          />
-          <Ionicons name="mail-outline" size={20} color="#999" style={styles.inputIcon} />
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                secureTextEntry
+                placeholderTextColor="#999"
+              />
+              <Ionicons name="eye-outline" size={20} color="#999" style={styles.inputIcon} />
+            </View>
+
+            <TouchableOpacity style={styles.forgotPassword}>
+              <Text style={styles.forgotPasswordText}>Forgot password</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.primaryBtn}>
+              <Text style={styles.primaryBtnText}>Log In</Text>
+            </TouchableOpacity>
+
+            {/* Divider */}
+            <View style={styles.dividerContainer}>
+              <View style={styles.dividerLine} />
+              <Text style={styles.dividerText}>Or Continue With</Text>
+              <View style={styles.dividerLine} />
+            </View>
+
+            {/* Social Login Buttons */}
+            <View style={styles.socialContainer}>
+              <TouchableOpacity style={styles.socialBtn}>
+                <Image
+                  source={require("../assets/images/Google.png")}
+                  style={{ width: 60, height: 60, resizeMode: "contain" }}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.socialBtn} onPress={() => router.push("/signup")}>
+                <Image
+                  source={require("../assets/images/Apple.png")}
+                  style={{ width: 60, height: 60, resizeMode: "contain" }}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.socialBtn}>
+                <Image
+                  source={require("../assets/images/Facebook.png")}
+                  style={{ width: 60, height: 60, resizeMode: "contain" }}
+                />
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.footer}>
+              <Text style={styles.footerText}>
+                Not a Member?{" "}
+                <Text style={styles.link} onPress={() => router.push("/signup")}>
+                  Register Now
+                </Text>
+              </Text>
+            </View>
+          </View>
         </View>
-
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            secureTextEntry
-            placeholderTextColor="#999"
-          />
-          <Ionicons name="eye-outline" size={20} color="#999" style={styles.inputIcon} />
-        </View>
-
-        <TouchableOpacity style={styles.forgotPassword}>
-          <Text style={styles.forgotPasswordText}>Forgot password</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.primaryBtn}>
-          <Text style={styles.primaryBtnText}>Log In</Text>
-        </TouchableOpacity>
-
-        {/* Divider */}
-        <View style={styles.dividerContainer}>
-          <View style={styles.dividerLine} />
-          <Text style={styles.dividerText}>Or Continue With</Text>
-          <View style={styles.dividerLine} />
-        </View>
-
-        {/* Social Login Buttons */}
-        <View style={styles.socialContainer}>
-          <TouchableOpacity style={styles.socialBtn}>
-            <Text style={styles.socialBtnText}>G</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.socialBtn} onPress={() => router.push("/signup")}>
-            <Ionicons name="logo-apple" size={24} color="#000" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.socialBtn}>
-            <Text style={styles.socialBtnText}>f</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>
-            Not a Member?{" "}
-            <Text style={styles.link} onPress={() => router.push("/signup")}>
-              Register Now
-            </Text>
-          </Text>
-        </View>
-      </View>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -83,90 +101,104 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF5F5",
   },
   headerContainer: {
-    backgroundColor: "#F8A5A5",
+    backgroundColor: "#F1B0B0",
     paddingTop: 60,
     paddingBottom: 40,
     paddingHorizontal: 25,
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
+    borderBottomLeftRadius: 42,
+    borderBottomRightRadius: 42,
   },
   header: {
-    fontSize: 32,
-    fontWeight: "700",
-    color: "#8B0000",
+    fontSize: 34,
+    lineHeight:36,
+    fontFamily:"PlayfairDisplay-VariableFont_wght",
+    fontWeight: "900",
+    color: "#B84953",
     textAlign: "center",
     marginBottom: 8,
   },
   subheader: {
-    fontSize: 16,
-    color: "#8B0000",
+    fontSize: 26,
+    lineHeight:32,
+    fontFamily:"inter",
+    color: "#AD7373",
     textAlign: "center",
-    opacity: 0.8,
+    fontWeight:"500",
+    // opacity: 0.8,
   },
   formContainer: {
     flex: 1,
     paddingHorizontal: 25,
-    paddingTop: 30,
+    paddingTop: 60,
   },
   inputContainer: {
     position: "relative",
     marginBottom: 15,
   },
   input: {
-    backgroundColor: "#fff",
-    padding: 15,
-    paddingRight: 45,
-    borderRadius: 15,
+    backgroundColor: "#FFFFFF",
+    padding: 17,
+    paddingRight: 52,
+    paddingLeft:32,
+    borderRadius: 12,
     fontSize: 16,
-    borderWidth: 1,
-    borderColor: "#E5E5E5",
+    lineHeight:34,
+    borderWidth: 0.5,
+    borderColor: "#989696",
   },
   inputIcon: {
     position: "absolute",
-    right: 15,
-    top: 15,
+    right: 25,
+    top: 23,
   },
   forgotPassword: {
     alignSelf: "flex-end",
-    marginBottom: 25,
+    marginBottom: 35,
   },
   forgotPasswordText: {
-    color: "#B33A3A",
-    fontSize: 14,
-    fontWeight: "500",
+    fontFamily:"inter",
+    color: "#CC3D3D",
+    fontSize: 16,
+    lineHeight:32,
+    fontWeight: "400",
+    textDecorationLine:"underline"
   },
   primaryBtn: {
-    backgroundColor: "#B33A3A",
-    padding: 18,
-    borderRadius: 15,
+    backgroundColor: "#B84953",
+    padding: 16,
+    borderRadius: 16,
     alignItems: "center",
     marginBottom: 30,
   },
   primaryBtnText: {
     color: "#fff",
-    fontSize: 18,
+    fontSize: 24,
+    lineHeight:31,
     fontWeight: "600",
+    letterSpacing:1,
   },
   dividerContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 25,
+    marginBottom: 30,
   },
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: "#DDD",
+    backgroundColor: "#6C6C6C",
   },
   dividerText: {
-    marginHorizontal: 15,
-    color: "#999",
-    fontSize: 14,
+    marginHorizontal: 12,
+    color: "#6C6C6C",
+    fontSize: 15,
+    lineHeight:35,
+    fontFamily:"inter",
   },
   socialContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    gap: 20,
-    marginBottom: 40,
+    gap: 40,
+    marginBottom: 70,
   },
   socialBtn: {
     width: 60,
