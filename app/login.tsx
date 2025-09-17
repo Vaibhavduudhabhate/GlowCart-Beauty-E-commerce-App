@@ -98,7 +98,8 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFF5F5",
+    backgroundColor: "#FFEDE8",
+    
   },
   headerContainer: {
     backgroundColor: "#F1B0B0",
@@ -222,10 +223,11 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 16,
-    color: "#666",
+    lineHeight:34,
+    color: "#6C6C6C",
   },
   link: {
-    color: "#B33A3A",
+    color: "#B84953",
     fontWeight: "600",
   },
 });

@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, StatusBar } from "react-native";
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, StatusBar,KeyboardAvoidingView,ScrollView ,Platform} from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons } from '@expo/vector-icons';
 
@@ -6,8 +6,17 @@ export default function SignupScreen() {
   const router = useRouter();
 
   return (
+
+    <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+        >
+          <ScrollView 
+            contentContainerStyle={{ flexGrow: 1 }} 
+            showsVerticalScrollIndicator={false}
+          >
     <View style={styles.container}>
-      <StatusBar backgroundColor="#F8A5A5" barStyle="light-content" />
+      <StatusBar backgroundColor="#F1B0B0" barStyle="light-content" />
 
       {/* Header Section */}
       <View style={styles.headerContainer}>
@@ -67,63 +76,72 @@ export default function SignupScreen() {
         </View>
       </View>
     </View>
+    </ScrollView>
+        </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFF5F5",
+    backgroundColor: "#FFEDE8",
   },
   headerContainer: {
-    backgroundColor: "#F8A5A5",
+    backgroundColor: "#F1B0B0",
     paddingTop: 60,
     paddingBottom: 40,
     paddingHorizontal: 25,
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
+    borderBottomLeftRadius: 42,
+    borderBottomRightRadius: 42,
   },
   header: {
-    fontSize: 32,
-    fontWeight: "700",
-    color: "#8B0000",
+    fontSize: 34,
+    lineHeight:36,
+    fontFamily:"PlayfairDisplay-VariableFont_wght",
+    fontWeight: "900",
+    color: "#B84953",
     textAlign: "center",
+    marginBottom: 8,
   },
   formContainer: {
     flex: 1,
     paddingHorizontal: 25,
-    paddingTop: 40,
+    paddingTop: 60,
   },
   inputContainer: {
     position: "relative",
     marginBottom: 20,
   },
   input: {
-    backgroundColor: "#fff",
-    padding: 15,
-    paddingRight: 45,
-    borderRadius: 15,
+    backgroundColor: "#FFFFFF",
+    padding: 17,
+    paddingRight: 52,
+    paddingLeft:32,
+    borderRadius: 12,
     fontSize: 16,
-    borderWidth: 1,
-    borderColor: "#E5E5E5",
+    lineHeight:34,
+    borderWidth: 0.5,
+    borderColor: "#989696",
   },
   inputIcon: {
     position: "absolute",
-    right: 15,
-    top: 15,
+    right: 25,
+    top: 25,
   },
   primaryBtn: {
-    backgroundColor: "#B33A3A",
-    padding: 18,
-    borderRadius: 15,
+    backgroundColor: "#B84953",
+    padding: 16,
+    borderRadius: 16,
     alignItems: "center",
-    marginTop: 20,
-    marginBottom: 40,
+    marginBottom: 150,
+    marginTop: 40,
   },
   primaryBtnText: {
     color: "#fff",
-    fontSize: 18,
+    fontSize: 24,
+    lineHeight:31,
     fontWeight: "600",
+    letterSpacing:1,
   },
   footer: {
     alignItems: "center",
@@ -132,10 +150,11 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 16,
-    color: "#666",
+    lineHeight:34,
+    color: "#6C6C6C",
   },
   link: {
-    color: "#B33A3A",
+    color: "#B84953",
     fontWeight: "600",
   },
 });
