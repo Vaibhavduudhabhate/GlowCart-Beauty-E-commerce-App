@@ -34,7 +34,7 @@ export default function ProfileScreen() {
           <View style={styles.profileInfo}>
             <View style={styles.avatarContainer}>
               <Image
-                source={{ uri: 'https://via.placeholder.com/60x60/CCCCCC/FFFFFF?text=O' }}
+                source={require("../assets/images/Profileimg.png")}
                 style={styles.avatar}
               />
             </View>
@@ -44,14 +44,25 @@ export default function ProfileScreen() {
             </View>
           </View>
           <TouchableOpacity style={styles.editButton}>
-            <Ionicons name="pencil-outline" size={20} color="#666" />
+            {/* <Ionicons name="pencil-outline" size={20} color="#666" /> */}
+            <Image
+                source={require("../assets/images/editIcon.png")}
+                // style={styles.avatar}
+              />
           </TouchableOpacity>
         </View>
 
         {/* Menu Items */}
         <View style={styles.menuContainer}>
           {menuItems.map((item, index) => (
-            <TouchableOpacity key={index} style={styles.menuItem} onPress={item.action}>
+            <TouchableOpacity
+              key={index}
+              style={[
+                styles.menuItem,
+                index === 3 && { marginBottom: 20 }, // 👈 add 20px gap after 4th item
+              ]}
+              onPress={item.action}
+            >
               <View style={styles.menuItemLeft}>
                 <Ionicons name={item.icon as any} size={24} color="#666" />
                 <View style={styles.menuItemText}>
@@ -65,6 +76,7 @@ export default function ProfileScreen() {
             </TouchableOpacity>
           ))}
         </View>
+
 
         {/* Logout */}
         <TouchableOpacity style={styles.logoutButton} onPress={() => router.push("/login")}>
@@ -99,7 +111,7 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFF5F5",
+    backgroundColor: "#FFEDE8",
   },
   header: {
     flexDirection: "row",
@@ -110,12 +122,16 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   headerTitle: {
-    fontSize: 24,
-    fontWeight: "700",
-    color: "#333",
+    fontFamily:"inter",
+    fontSize: 28,
+    lineHeight:21,
+    fontWeight: "600",
+    color: "#070707",
   },
   menuButton: {
-    padding: 5,
+    padding: 10,
+    borderRadius:50,
+    backgroundColor:"#fff",
   },
   profileSection: {
     flexDirection: "row",
@@ -125,8 +141,8 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     backgroundColor: "#fff",
     marginHorizontal: 20,
-    marginBottom: 20,
-    borderRadius: 15,
+    marginBottom: 16,
+    borderRadius: 16,
   },
   profileInfo: {
     flexDirection: "row",
@@ -145,14 +161,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   userName: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#333",
+    fontSize: 20,
+    fontWeight: "400",
+    fontFamily:"inter",
+    color: "#070707",
     marginBottom: 4,
   },
   userEmail: {
-    fontSize: 14,
-    color: "#666",
+    fontSize: 12,
+    fontWeight: "400",
+    fontFamily:"inter",
+    color: "#070707",
   },
   editButton: {
     padding: 8,
